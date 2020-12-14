@@ -2,12 +2,12 @@ with open('input.txt') as f:
     data = f.read().split('\n')
 
 executed = []
+bad_rules = {n for n, i in enumerate(data) if i.startswith(('jmp', 'nop'))}
 accu = 0
          
-
 def execute(ln):
     if ln in executed:
-        return
+        return None
     cmd, val = data[ln].split()
     val = int(val)
     executed.append(ln)
@@ -23,6 +23,6 @@ def execute(ln):
             execute(ln+val)
     else:
         execute(ln+1)
+    
 
 execute(0)
-print(accu)
